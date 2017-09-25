@@ -1,0 +1,117 @@
+html {
+
+    height: 100%;
+
+}
+
+body {
+
+    height: 100%;
+
+    margin: 0;
+    color: #938E8E;
+
+    /*background-color: #111;*/
+
+    background-image: url('../Image/3.jpg');
+
+	background-size:100% 100%;
+
+	overflow-x:hidden;
+
+	overflow-y:hidden;
+
+}
+
+#bgmp{
+
+	width: 100%;
+	height: 100%;
+	z-index:0;
+
+}
+
+
+#vMEM{
+
+	top: 5%;
+	left: 2%;
+	width: 30%;
+	height: 35%;
+	position: absolute;
+	float: left;
+	z-index: 1;
+	background-color: rgba(145,143,143, 0.1);
+
+
+}
+
+#storage{
+
+	top: 50%;
+	left: 2%;
+	width: 30%;
+	height: 35%;
+	bottom: 15%;
+	position: absolute;
+	float: left;
+	z-index: 1;
+	background-color: rgba(145,143,143, 0.1);
+
+}
+
+#vCPU{
+
+	top: 5%;
+	left: 68%;
+	right: 2%;
+	width: 30%;
+	height: 35%;
+	position: absolute;
+	float: left;
+	z-index: 1;
+	background-color: rgba(145,143,143, 0.1);
+}
+
+#warn{
+  
+	top: 50%;
+	right: 2%;
+	left: 68%;
+	width: 30%;
+	height: 35%;
+	bottom: 15%;
+	position: absolute;
+	float: left;
+	z-index: 1;
+
+}
+
+#foot{
+	top: 85%;
+	width: 100%;
+	height: 15%;
+	bottom: 0%;
+	z-index: 1;
+	position: absolute;
+	float: left;
+}
+
+.box{
+	width: 45%;
+	height: 38%;
+	background-color: rgba(145,143,143, 0.1);
+	float: left;
+	position: relative;
+	text-align: center;
+	font-weight: bold;
+	background-image: url('../Image/boxbg.png');
+
+	background-size:100% 100%;
+
+}
+p{
+	color: #fff;
+	font-weight: normal;
+
+}
