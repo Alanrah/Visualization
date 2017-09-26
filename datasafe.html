@@ -4,8 +4,7 @@
 	<title>datasafe</title>
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
 	<script src="dist/echarts.js"></script>
-	<script src="dist/bmap/bmap.js"></script>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=53oVIOgmSIejwV7EfphPgTynOZbIiVYu"></script>
+	<script src="dist/jquery-3.2.1.js"></script>
 
 </head>
 <body >
@@ -36,7 +35,14 @@
 
 	<script type="text/javascript">
 
-		var bgmap = echarts.init(document.getElementById('bgmap'));
+		var bgmap1=document.getElementById('bgmap');
+		bgmap1.style.width = window.innerWidth+'px';
+        bgmap1.style.height = window.innerHeight+'px';
+
+		var bgmap = echarts.init(bgmap1);
+		//console.log(bgmap.style.width)
+		//bgmap.style.width = window.innerWidth+'px';
+        //bgmap.style.height = window.innerHeight*0.9+'px';
 		var vMEM = echarts.init(document.getElementById('vMEM'));
 		var vCPU = echarts.init(document.getElementById('vCPU'));
 		var storage = echarts.init(document.getElementById('storage'));
@@ -227,13 +233,16 @@
 		            period: 4, 
 		            trailLength: 0.02,
 		            symbol:'arrow',
-		            symbolSize: 5,
+		            symbolSize: 7,
 		        },
 		        lineStyle: {
 		            normal: {
+		            	color:'#00ffff',
 		                width: 1,
-		                opacity: 0,
-		                curveness: 0
+		                opacity: 0.6,
+		                curveness: 0.1,
+		                shadowColor: 'rgba(0, 0, 0, 0.9)',
+    shadowBlur: 14
 		            }
 		        },
 		        
@@ -266,7 +275,7 @@
 		        itemStyle: {
 		            normal: {
 		            	show: false,
-		                color: '#f00'
+		                color: '#FEA613'
 		            }
 		        },
 		        data: item[1].map(function (dataItem) {
@@ -295,7 +304,7 @@
 						color:'#00ffff',
 		                formatter: '{b}',
 		                textStyle: {
-		                	color:"#00ffff"
+		                	color:"#ffffff"
 		                }
 		            },
 		            emphasis: {
@@ -307,7 +316,7 @@
 		        itemStyle: {
 		            normal: {
 		            	show: true,
-		                color: '#9966cc'
+		                color: '#F31B35'
 		            }
 		        },
 		        data:[{
@@ -318,18 +327,13 @@
 		    );
 		});
 
+	$.get('china.json', function (chinaJson) { 
+
+		echarts.registerMap('china', chinaJson); 
+
 		bgmapoption = {
-		    backgroundColor: '#404a59',
+		    backgroundColor: 'rgba(0,0,0,0)',
 							
-			visualMap: {
-		        min : 0,
-		        max : 100,
-		        calculable : true,
-		        color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
-		        textStyle:{
-		            color:'#fff'
-		        }
-		    },
 			geo: {
 				map: 'china',
 				label: {
@@ -342,8 +346,11 @@
 				layoutSize:"108%",
 				itemStyle: {
 					normal: {
-						color: 'rgba(51, 69, 89, .5)',
-						borderColor: 'rgba(100,149,237,1)'
+						color: 'rgba(51, 69, 89, 0.5)',
+						borderColor: '#48F3E0',
+						borderWidth :'1',
+						shadowColor: 'rgba(0, 0, 0, 0.5)',
+    					shadowBlur: 3
 					},
 					emphasis: {
 						color: 'rgba(37, 43, 61, .5)'
@@ -354,8 +361,11 @@
 		    series: series
 		};
 
+		bgmap.setOption(bgmapoption);
+
+});
 		vMEMoption = {
-			backgroundColor: 'rgba(145,143,143, 0.1)',
+			backgroundColor: 'rgba(20,19,19, 0.5)',
 			title : {
 		        text: 'vMEM/TB',
 		        subtext: '当前总量/当前分配量 '+dataY1Sum+'/'+dataY2Sum,
@@ -477,7 +487,7 @@
 	};
 
 		vCPUoption = {
-			backgroundColor: 'rgba(145,143,143, 0.1)',
+			backgroundColor: 'rgba(20,19,19, 0.5)',
 			title : {
 		        text: 'vCPU/个',
 		        subtext: '当前总量/当前分配量 '+dataY1Sum+'/'+dataY2Sum,
@@ -588,7 +598,7 @@
 
 		storageoption = {
 		
-			backgroundColor: 'rgba(145,143,143, 0.1)',
+			backgroundColor: 'rgba(20,19,19, 0.5)',
 			title : {
 		        text: '存储/TB',
 		        subtext: '当前总量/当前分配量 '+dataY1Sum+'/'+dataY2Sum,
@@ -681,7 +691,6 @@
 		    ]
 		};
 
-		bgmap.setOption(bgmapoption);
 		storage.setOption(storageoption);
 		vMEM.setOption(vMEMoption);
 		vCPU.setOption(vCPUoption);
