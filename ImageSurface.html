@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="dist/echarts.js"></script>
+	<script type="text/javascript" src="dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="dist/simplex-noise.js"></script>
+	<style>
+	html{
+		height: 100%;
+	}
+	body{
+		height: 100%;
+	}
+	#main{
+		width: 100%;
+		height: 80%;
+		background-color: #111111;
+	}
+	</style>
+</head>
+<body>
+	<div id="main"></div>
+	<script>
+		var main =document.getElementById("main");
+		var myChart = echarts.init(main);//如果出现错误，就用localhost
+
+		function generateData() {
+		    var data = [];
+		    var noise = new SimplexNoise(Math.random);
+		    for (var i = 0; i <= 10; i++) {
+		        for (var j = 0; j <= 10; j++) {
+		            var value = noise.noise2D(i / 5, j / 5);
+		            data.push([i, j, value * 2 + 4]);
+		        }
+		    }
+		    return data;
+		}
+
+		var series = [];
+		for (var i = 0; i < 10; i++) {
+		    series.push({
+		        type: 'bar3D',
+		        data: generateData(),
+		        stack: 'stack',
+		        shading: 'lambert',
+		        emphasis: {
+		            label: {
+		                show: false
+		            }
+		        }
+		    });
+		}
+
+		option = {
+		    xAxis3D: {
+		        type: 'value'
+		    },
+		    yAxis3D: {
+		        type: 'value'
+		    },
+		    zAxis3D: {
+		        type: 'value'
+		    },
+		    grid3D: {
+		        viewControl: {
+		            // autoRotate: true
+		        },
+		        light: {
+		            main: {
+		                shadow: true,
+		                quality: 'ultra',
+		                intensity: 1.5
+		            }
+		        }
+		    },
+		    series: series
+		}
+		myChart.setOption(option);
+
+	</script>
+</body>
+</html>
